@@ -27,7 +27,7 @@ Badany zakres obejmuje:
 
 ## 3. Architektura rozwiązania
 
-```mermaid
+```
 flowchart LR
     A[producer.py - generator syntetycznych zdarzeń JSON] -->|Publikacja zdarzeń| B[(Topik Kafka: orders)]
     B -->|Konsumpcja strumienia danych| C[Spark Structured Streaming - readStream]
