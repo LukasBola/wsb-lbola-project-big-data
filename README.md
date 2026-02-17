@@ -115,13 +115,6 @@ Główna część analityczna:
 9. Konwersja do Pandas i wygenerowanie 4 wykresów.
 10. Zapis wykresów do katalogu `output/`.
 
-### Wykresy biznesowe
-Uwaga: linki poniżej prowadzą do przykładowych wykresów z katalogu `example_charts` (to przykładowe wyniki, mogą różnić się od aktualnego uruchomienia).
-- `output/orders_3d_item_weekday.png` - wykres 3D `produkt x dzień tygodnia x ilość` (kolor = przychód): pokazuje, jakie produkty i w które dni generują największy wolumen. Przykład: [orders_3d_item_weekday.png](example_charts/orders_3d_item_weekday.png)
-- `output/orders_revenue_heatmap_weekday_hour.png` - heatmapa przychodu `dzień tygodnia x godzina`: wskazuje najlepsze okna czasowe na promocje i planowanie obsady. Przykład: [orders_revenue_heatmap_weekday_hour.png](example_charts/orders_revenue_heatmap_weekday_hour.png)
-- `output/orders_pareto_revenue_item.png` - wykres Pareto przychodu po produkcie: identyfikuje produkty, które odpowiadają za największą część obrotu. Przykład: [orders_pareto_revenue_item.png](example_charts/orders_pareto_revenue_item.png)
-- `output/orders_boxplot_channel_payment.png` - boxplot wartości zamówienia wg kanału sprzedaży i metody płatności: pomaga ocenić, gdzie i jak płacą klienci o wyższej wartości koszyka. Przykład: [orders_boxplot_channel_payment.png](example_charts/orders_boxplot_channel_payment.png)
-
 ### `scripts/reset_project.py`
 Skrypt "hard reset" do powtarzalnych uruchomień demo:
 - (best effort) zatrzymuje lokalne procesy Jupyter/Spark oraz czyści pliki runtime Jupytera,
@@ -215,7 +208,16 @@ python tracker.py --topic orders --group-id order-tracker --commit-every 500
 ```
 10. Po zakończeniu producentów: uruchomić komórki batch/agregacja/wykres w notebooku.
 
-## 6. Metryki i sposób ewaluacji
+## 6. Produkty analizy - wykresy biznesowe (prezentacja graficzna analizy eventów)
+
+Uwaga: linki poniżej prowadzą do przykładowych wykresów z katalogu `example_charts` (to przykładowe wyniki, mogą różnić się od aktualnego uruchomienia).
+- `output/orders_3d_item_weekday.png` - wykres 3D `produkt x dzień tygodnia x ilość` (kolor = przychód): pokazuje, jakie produkty i w które dni generują największy wolumen. Przykład: [orders_3d_item_weekday.png](example_charts/orders_3d_item_weekday.png)
+- `output/orders_revenue_heatmap_weekday_hour.png` - heatmapa przychodu `dzień tygodnia x godzina`: wskazuje najlepsze okna czasowe na promocje i planowanie obsady. Przykład: [orders_revenue_heatmap_weekday_hour.png](example_charts/orders_revenue_heatmap_weekday_hour.png)
+- `output/orders_pareto_revenue_item.png` - wykres Pareto przychodu po produkcie: identyfikuje produkty, które odpowiadają za największą część obrotu. Przykład: [orders_pareto_revenue_item.png](example_charts/orders_pareto_revenue_item.png)
+- `output/orders_boxplot_channel_payment.png` - boxplot wartości zamówienia wg kanału sprzedaży i metody płatności: pomaga ocenić, gdzie i jak płacą klienci o wyższej wartości koszyka. Przykład: [orders_boxplot_channel_payment.png](example_charts/orders_boxplot_channel_payment.png)
+
+## 7. Metryki techniczne (developerskie) i sposób ewaluacji
+
 Rekomendowane metryki do raportu:
 - producent: `throughput_eps`, `avg_ack_ms`, `sent_ok`, `sent_error`,
 - konsument: `throughput_eps`, `avg_end_to_end_latency_ms`, `processed`, `errors`,
@@ -226,7 +228,7 @@ Interpretacja:
 - niższe `avg_ack_ms` i `avg_end_to_end_latency_ms` oznaczają mniejsze opóźnienia,
 - rozbieżności między liczbą wysłanych i przetworzonych zdarzeń wymagają analizy offsetów i kolejności uruchomienia.
 
-## 7. Użyte biblioteki i oprogramowanie
+## 8. Użyte biblioteki i oprogramowanie
 
 ### Oprogramowanie systemowe
 - Docker + Docker Compose (orkiestracja lokalnego klastra Kafka),
@@ -244,7 +246,7 @@ Interpretacja:
 - `matplotlib==3.10.0` - backend wizualizacji,
 - `jupyter==1.1.1` - uruchamianie notebooka.
 
-## 8. Weryfikacja i diagnostyka
+## 9. Weryfikacja i diagnostyka techniczna (developerska)
 Lista topików:
 ```bash
 docker exec -it kafka-1 kafka-topics --list --bootstrap-server kafka-1:9092,kafka-2:9092
